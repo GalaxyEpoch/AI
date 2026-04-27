@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💰 赞助支持
+    url: https://github.com/sponsors/GalaxyEpoch
+    about: 如果你觉得 GalaxyEpoch 有用，欢迎赞助支持持续开发！
+  - name: 📖 查看文档
+    url: https://github.com/GalaxyEpoch/AI#readme
+    about: 查看项目 README 和使用文档
+  - name: 💬 加入讨论
+    url: https://github.com/GalaxyEpoch/AI/discussions
+    about: 参与社区讨论、分享使用经验

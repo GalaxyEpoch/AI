@@ -781,3 +781,31 @@
   font-size: 11px;
   color: var(--text-muted);
 }
+/* 赞助二维码弹窗 */
+.sponsor-qr-content {
+  max-width: 360px;
+  padding: 28px 24px;
+  position: relative;
+  z-index: 1001;
+}
+.sponsor-qr-content .modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.sponsor-qr-content .modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+/* 赞助卡片区分扫码和链接 */
+.sponsor-card-qr {
+  border-color: var(--accent);
+  border-style: dashed;
+}

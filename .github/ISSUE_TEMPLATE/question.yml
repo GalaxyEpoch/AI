@@ -1,0 +1,27 @@
+name: 💬 问题咨询
+description: 使用问题、配置帮助或其他疑问
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        👋 有问题？尽管问！
+
+        > 💡 **如果你觉得 GalaxyEpoch 有用，欢迎[赞助支持](https://github.com/sponsors/GalaxyEpoch)！**
+
+  - type: textarea
+    id: question
+    attributes:
+      label: 你的问题
+      description: 描述你遇到的问题或疑问
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 环境信息
+      description: 操作系统、版本号等
+      placeholder: |
+        - OS: Windows 10
+        - GalaxyEpoch 版本: 1.0.0
