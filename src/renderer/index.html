@@ -363,61 +363,34 @@
             <div class="sponsor-section" style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
               <h3>☕ 支持开发者</h3>
               <p class="hint" style="margin-bottom: 16px;">如果你觉得 GalaxyEpoch 有用，欢迎赞助支持持续开发！</p>
-              <!-- 国际平台 -->
-              <div class="sponsor-grid" style="margin-bottom: 10px;">
-                <div class="sponsor-card" onclick="window.open('https://github.com/sponsors/GalaxyEpoch','_blank')">
-                  <div class="sponsor-icon">❤️</div>
-                  <div class="sponsor-name">GitHub Sponsors</div>
-                  <div class="sponsor-desc">0%手续费 · 按月/一次性</div>
-                </div>
-                <div class="sponsor-card" onclick="window.open('https://www.buymeacoffee.com/galaxyepoch','_blank')">
-                  <div class="sponsor-icon">☕</div>
-                  <div class="sponsor-name">Buy Me a Coffee</div>
-                  <div class="sponsor-desc">请我喝杯咖啡</div>
-                </div>
-                <div class="sponsor-card" onclick="window.open('https://ko-fi.com/galaxyepoch','_blank')">
-                  <div class="sponsor-icon">🎨</div>
-                  <div class="sponsor-name">Ko-fi</div>
-                  <div class="sponsor-desc">0%平台费</div>
-                </div>
-                <div class="sponsor-card" onclick="window.open('https://www.patreon.com/GalaxyEpoch','_blank')">
-                  <div class="sponsor-icon">🎭</div>
-                  <div class="sponsor-name">Patreon</div>
-                  <div class="sponsor-desc">订阅赞助 · 专属权益</div>
-                </div>
-                <div class="sponsor-card" onclick="window.open('https://polar.sh/GalaxyEpoch','_blank')">
-                  <div class="sponsor-icon">🌟</div>
-                  <div class="sponsor-name">Polar</div>
-                  <div class="sponsor-desc">Issue 悬赏</div>
-                </div>
-                <div class="sponsor-card" onclick="window.open('https://issuehunt.io/GalaxyEpoch','_blank')">
-                  <div class="sponsor-icon">🔍</div>
-                  <div class="sponsor-name">IssueHunt</div>
-                  <div class="sponsor-desc">为功能设悬赏</div>
+              <div class="sponsor-grid">
+                <div class="sponsor-card sponsor-card-qr" onclick="openSponsorQR('wechat')">
+                  <div class="sponsor-icon">💚</div>
+                  <div class="sponsor-name">微信收款码</div>
+                  <div class="sponsor-desc">扫码打赏支持</div>
                 </div>
                 <div class="sponsor-card" onclick="window.open('https://www.paypal.com/donate/?business=duhaidong1985@gmail.com','_blank')">
                   <div class="sponsor-icon">💳</div>
                   <div class="sponsor-name">PayPal 捐赠</div>
-                  <div class="sponsor-desc">直接打赏到 PayPal 账户</div>
-                </div>
-                <div class="sponsor-card" onclick="window.open('https://opencollective.com/galaxyepoch','_blank')">
-                  <div class="sponsor-icon">🏗️</div>
-                  <div class="sponsor-name">Open Collective</div>
-                  <div class="sponsor-desc">透明财务 · 企业友好</div>
+                  <div class="sponsor-desc">duhaidong1985@gmail.com</div>
                 </div>
               </div>
-              <!-- 国内/其他平台 -->
-              <div class="sponsor-grid">
-                <div class="sponsor-card" onclick="window.open('https://afdian.net/a/galaxyepoch','_blank')">
-                  <div class="sponsor-icon">🇨🇳</div>
-                  <div class="sponsor-name">爱发电</div>
-                  <div class="sponsor-desc">国内用户首选</div>
+            </div>
+
+            <!-- 微信收款码弹窗 -->
+            <div id="sponsor-qr-modal" class="modal" style="display:none;">
+              <div class="modal-backdrop" onclick="closeSponsorQR()"></div>
+              <div class="modal-content sponsor-qr-content">
+                <button class="modal-close" onclick="closeSponsorQR()">✕</button>
+                <div style="font-size:48px;text-align:center;margin-bottom:12px;">💚</div>
+                <h3 style="text-align:center;margin-bottom:16px;">微信收款码</h3>
+                <div style="text-align:center;">
+                  <img id="sponsor-qr-image" src="" alt="微信收款码" style="max-width:220px;max-height:220px;border-radius:8px;display:none;" />
+                  <div id="sponsor-qr-placeholder" style="padding:40px 20px;background:var(--bg-tertiary);border-radius:8px;color:var(--text-muted);font-size:13px;">
+                    📱 收款码加载中…<br><small>如未显示，请将微信收款码放置到 assets/wechat-qrcode.png</small>
+                  </div>
                 </div>
-                <div class="sponsor-card" onclick="window.open('https://liberapay.com/galaxyepoch','_blank')">
-                  <div class="sponsor-icon">🤝</div>
-                  <div class="sponsor-name">Liberapay</div>
-                  <div class="sponsor-desc">开源透明捐赠</div>
-                </div>
+                <p style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:12px;">打开微信扫一扫，即可打赏支持开发者 ❤️</p>
               </div>
             </div>
 

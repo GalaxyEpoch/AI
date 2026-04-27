@@ -875,6 +875,32 @@ async function openAdminPanel() {
   }
 }
 
+function openSponsorQR() {
+  const img = document.getElementById('sponsor-qr-image');
+  const placeholder = document.getElementById('sponsor-qr-placeholder');
+
+  img.src = 'assets/wechat-qrcode.png';
+  img.style.display = 'none';
+  placeholder.style.display = 'block';
+  placeholder.innerHTML = '📱 收款码加载中…<br><small>如未显示，请将微信收款码放置到 assets/wechat-qrcode.png</small>';
+
+  img.onload = function() {
+    img.style.display = 'inline-block';
+    placeholder.style.display = 'none';
+  };
+  img.onerror = function() {
+    img.style.display = 'none';
+    placeholder.style.display = 'block';
+    placeholder.innerHTML = '📱 收款码暂未配置<br><small>请将微信收款码图片放置到项目 <code>assets/wechat-qrcode.png</code></small>';
+  };
+
+  document.getElementById('sponsor-qr-modal').style.display = 'flex';
+}
+
+function closeSponsorQR() {
+  document.getElementById('sponsor-qr-modal').style.display = 'none';
+}
+
 function loadApiKeys() {
   const keys = state.settings.apiKeyMap || {};
   const providers = [...new Set(state.presets.map(p => p.provider))];
