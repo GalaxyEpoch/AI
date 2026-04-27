@@ -2,10 +2,6 @@
 
 > 开源大模型聚合客户端 — 轻量化、易部署、永久开源免费
 
-[![Sponsor](https://img.shields.io/badge/%E2%9D%A4-Sponsor-ff69b4?logo=github-sponsors)](https://github.com/sponsors/GalaxyEpoch)
-[![Buy Me A Coffee](https://img.shields.io/badge/%E2%98%95-Buy%20Me%20A%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/galaxyepoch)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/galaxyepoch)
-[![Patreon](https://img.shields.io/badge/Patreon-Support-FF424D?logo=patreon&logoColor=white)](https://www.patreon.com/GalaxyEpoch)
 [![PayPal](https://img.shields.io/badge/PayPal-Donate-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=duhaidong1985@gmail.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/GalaxyEpoch/AI/total)](https://github.com/GalaxyEpoch/AI/releases)
@@ -220,27 +216,14 @@ MIT License - 自由使用、修改、分发
 
 ## ☕ 支持开发者
 
-如果 GalaxyEpoch 对你有帮助，欢迎赞助支持持续开发！每一笔赞助都将用于项目维护和新功能开发。
+如果 GalaxyEpoch 对你有帮助，欢迎赞助支持持续开发！
 
 ### 💖 赞助方式
 
 | 平台 | 链接 | 说明 |
 |------|------|------|
-| ❤️ GitHub Sponsors | [赞助](https://github.com/sponsors/GalaxyEpoch) | 按月/一次性赞助，0% 手续费 |
-| ☕ Buy Me a Coffee | [请我喝咖啡](https://www.buymeacoffee.com/galaxyepoch) | 一次性打赏 |
-| 🎨 Ko-fi | [支持](https://ko-fi.com/galaxyepoch) | 0% 平台费 |
-| 🎭 Patreon | [订阅](https://www.patreon.com/GalaxyEpoch) | 创作者订阅 |
-| 💳 PayPal | [捐赠](https://www.paypal.com/donate/?business=duhaidong1985@gmail.com) | 直接到 PayPal 账户 |
-| 🌟 Polar | [赞助](https://polar.sh/GalaxyEpoch) | 开源 Issue 悬赏 |
-| 🔍 IssueHunt | [悬赏](https://issuehunt.io/GalaxyEpoch) | 为 Issue 悬赏 |
-| 🇨🇳 爱发电 | [赞助](https://afdian.net/a/galaxyepoch) | 国内用户首选 |
-
-### 🏆 赞助商
-
-> 成为赞助商，你的 Logo 将展示在这里！[成为赞助商 →](https://github.com/sponsors/GalaxyEpoch)
-
-<!-- sponsors -->
-<!-- sponsors -->
+| 💚 微信收款码 | 扫码打赏 | 微信扫码直接打赏 |
+| 💳 PayPal | [捐赠](https://www.paypal.com/donate/?business=duhaidong1985@gmail.com) | duhaidong1985@gmail.com 直接收款 |
 
 ### ⭐ Star History
 
