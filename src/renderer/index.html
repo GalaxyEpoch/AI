@@ -359,6 +359,33 @@
             <div style="margin-top: 20px;">
               <button class="btn-primary" onclick="openAdminPanel()" style="padding: 8px 20px;">🔐 管理员后台</button>
             </div>
+            <!-- 赞助/打赏/收款 -->
+            <div class="sponsor-section" style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+              <h3>☕ 支持开发者</h3>
+              <p class="hint" style="margin-bottom: 16px;">如果你觉得 GalaxyEpoch 有用，欢迎赞助支持持续开发！</p>
+              <div class="sponsor-grid">
+                <div class="sponsor-card" onclick="window.open('https://github.com/sponsors/GalaxyEpoch','_blank')">
+                  <div class="sponsor-icon">❤️</div>
+                  <div class="sponsor-name">GitHub Sponsors</div>
+                  <div class="sponsor-desc">按月赞助开发者</div>
+                </div>
+                <div class="sponsor-card" onclick="openSponsorQR('wechat')">
+                  <div class="sponsor-icon">💚</div>
+                  <div class="sponsor-name">微信赞赏</div>
+                  <div class="sponsor-desc">扫码打赏支持</div>
+                </div>
+                <div class="sponsor-card" onclick="openSponsorQR('alipay')">
+                  <div class="sponsor-icon">🔵</div>
+                  <div class="sponsor-name">支付宝赞赏</div>
+                  <div class="sponsor-desc">扫码打赏支持</div>
+                </div>
+                <div class="sponsor-card" onclick="window.open('https://www.buymeacoffee.com/','_blank')">
+                  <div class="sponsor-icon">☕</div>
+                  <div class="sponsor-name">Buy Me a Coffee</div>
+                  <div class="sponsor-desc">请我喝杯咖啡</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Token 推广收益 -->

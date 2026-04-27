@@ -739,3 +739,45 @@
   margin-bottom: 8px;
   border: 1px solid var(--border-color);
 }
+
+/* ==================== 赞助/打赏 ==================== */
+.sponsor-section h3 {
+  margin-bottom: 4px;
+}
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+.sponsor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.sponsor-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.sponsor-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.sponsor-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.sponsor-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}

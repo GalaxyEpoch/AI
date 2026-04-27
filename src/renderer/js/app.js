@@ -875,6 +875,11 @@ async function openAdminPanel() {
   }
 }
 
+function openSponsorQR(type) {
+  const names = { wechat: '微信赞赏', alipay: '支付宝赞赏' };
+  alert(`📱 ${names[type] || '赞赏'}\n\n请将收款二维码图片放置到项目 assets/${type}-qrcode.png\n功能启用后，此处将展示二维码供用户扫码打赏。`);
+}
+
 function loadApiKeys() {
   const keys = state.settings.apiKeyMap || {};
   const providers = [...new Set(state.presets.map(p => p.provider))];
