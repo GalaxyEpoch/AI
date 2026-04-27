@@ -6,7 +6,7 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/%E2%98%95-Buy%20Me%20A%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/galaxyepoch)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/galaxyepoch)
 [![Patreon](https://img.shields.io/badge/Patreon-Support-FF424D?logo=patreon&logoColor=white)](https://www.patreon.com/GalaxyEpoch)
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-00457C?logo=paypal&logoColor=white)](https://www.paypal.me/galaxyepoch)
+[![PayPal](https://img.shields.io/badge/PayPal-Donate-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=duhaidong1985@gmail.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/GalaxyEpoch/AI/total)](https://github.com/GalaxyEpoch/AI/releases)
 
@@ -230,12 +230,10 @@ MIT License - 自由使用、修改、分发
 | ☕ Buy Me a Coffee | [请我喝咖啡](https://www.buymeacoffee.com/galaxyepoch) | 一次性打赏 |
 | 🎨 Ko-fi | [支持](https://ko-fi.com/galaxyepoch) | 0% 平台费 |
 | 🎭 Patreon | [订阅](https://www.patreon.com/GalaxyEpoch) | 创作者订阅 |
-| 💳 PayPal | [捐赠](https://www.paypal.me/galaxyepoch) | 一次性 PayPal |
+| 💳 PayPal | [捐赠](https://www.paypal.com/donate/?business=duhaidong1985@gmail.com) | 直接到 PayPal 账户 |
 | 🌟 Polar | [赞助](https://polar.sh/GalaxyEpoch) | 开源 Issue 悬赏 |
 | 🔍 IssueHunt | [悬赏](https://issuehunt.io/GalaxyEpoch) | 为 Issue 悬赏 |
 | 🇨🇳 爱发电 | [赞助](https://afdian.net/a/galaxyepoch) | 国内用户首选 |
-| 💚 微信赞赏 | 扫码 | 微信扫码打赏 |
-| 🔵 支付宝赞赏 | 扫码 | 支付宝扫码打赏 |
 
 ### 🏆 赞助商
 

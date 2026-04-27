@@ -20,7 +20,7 @@ GalaxyEpoch 是一个**永久开源免费**的大模型聚合客户端。如果�
 | ☕ **Buy Me a Coffee** | [请我喝咖啡](https://www.buymeacoffee.com/galaxyepoch) | 一次性打赏，即时到账 |
 | 🎨 **Ko-fi** | [支持](https://ko-fi.com/galaxyepoch) | 0% 平台费 |
 | 🎭 **Patreon** | [订阅](https://www.patreon.com/GalaxyEpoch) | 专属内容 + 优先支持 |
-| 💳 **PayPal** | [捐赠](https://www.paypal.me/galaxyepoch) | 一次性 PayPal 转账 |
+| 💳 **PayPal** | [捐赠](https://www.paypal.com/donate/?business=duhaidong1985@gmail.com) | 直接到 PayPal 账户，即时到账 |
 | 🌟 **Polar** | [赞助](https://polar.sh/GalaxyEpoch) | 开源 Issue 悬赏 |
 | 🔍 **IssueHunt** | [悬赏](https://issuehunt.io/GalaxyEpoch) | 为功能请求设悬赏 |
 | 🤝 **Liberapay** | [捐赠](https://liberapay.com/galaxyepoch) | 开源透明捐赠 |
@@ -32,8 +32,6 @@ GalaxyEpoch 是一个**永久开源免费**的大模型聚合客户端。如果�
 | 平台 | 链接 | 特点 |
 |------|------|------|
 | 🇨🇳 **爱发电** | [赞助](https://afdian.net/a/galaxyepoch) | 国内用户首选，微信/支付宝 |
-| 💚 **微信赞赏** | 扫码 | 微信扫码打赏 |
-| 🔵 **支付宝赞赏** | 扫码 | 支付宝扫码打赏 |
 
 ---
 

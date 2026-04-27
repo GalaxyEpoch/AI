@@ -33,7 +33,7 @@
 | Buy Me a Coffee | https://www.buymeacoffee.com/galaxyepoch |
 | Ko-fi | https://ko-fi.com/galaxyepoch |
 | Patreon | https://www.patreon.com/GalaxyEpoch |
-| PayPal | https://www.paypal.me/galaxyepoch |
+| PayPal | https://www.paypal.com/donate/?business=duhaidong1985@gmail.com |
 | 爱发电 | https://afdian.net/a/galaxyepoch |
 | Polar | https://polar.sh/GalaxyEpoch |
 | IssueHunt | https://issuehunt.io/GalaxyEpoch |

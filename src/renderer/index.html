@@ -395,10 +395,10 @@
                   <div class="sponsor-name">IssueHunt</div>
                   <div class="sponsor-desc">为功能设悬赏</div>
                 </div>
-                <div class="sponsor-card" onclick="window.open('https://www.paypal.me/galaxyepoch','_blank')">
+                <div class="sponsor-card" onclick="window.open('https://www.paypal.com/donate/?business=duhaidong1985@gmail.com','_blank')">
                   <div class="sponsor-icon">💳</div>
-                  <div class="sponsor-name">PayPal</div>
-                  <div class="sponsor-desc">一次性捐赠</div>
+                  <div class="sponsor-name">PayPal 捐赠</div>
+                  <div class="sponsor-desc">直接打赏到 PayPal 账户</div>
                 </div>
                 <div class="sponsor-card" onclick="window.open('https://opencollective.com/galaxyepoch','_blank')">
                   <div class="sponsor-icon">🏗️</div>
@@ -406,18 +406,8 @@
                   <div class="sponsor-desc">透明财务 · 企业友好</div>
                 </div>
               </div>
-              <!-- 国内平台 -->
+              <!-- 国内/其他平台 -->
               <div class="sponsor-grid">
-                <div class="sponsor-card sponsor-card-qr" onclick="openSponsorQR('wechat')">
-                  <div class="sponsor-icon">💚</div>
-                  <div class="sponsor-name">微信赞赏</div>
-                  <div class="sponsor-desc">扫码打赏支持</div>
-                </div>
-                <div class="sponsor-card sponsor-card-qr" onclick="openSponsorQR('alipay')">
-                  <div class="sponsor-icon">🔵</div>
-                  <div class="sponsor-name">支付宝赞赏</div>
-                  <div class="sponsor-desc">扫码打赏支持</div>
-                </div>
                 <div class="sponsor-card" onclick="window.open('https://afdian.net/a/galaxyepoch','_blank')">
                   <div class="sponsor-icon">🇨🇳</div>
                   <div class="sponsor-name">爱发电</div>
@@ -431,22 +421,7 @@
               </div>
             </div>
 
-            <!-- 赞助二维码弹窗 -->
-            <div id="sponsor-qr-modal" class="modal" style="display:none;">
-              <div class="modal-backdrop" onclick="closeSponsorQR()"></div>
-              <div class="modal-content sponsor-qr-content">
-                <button class="modal-close" onclick="closeSponsorQR()">✕</button>
-                <div id="sponsor-qr-icon" style="font-size:48px;text-align:center;margin-bottom:12px;">💚</div>
-                <h3 id="sponsor-qr-title" style="text-align:center;margin-bottom:16px;">微信赞赏</h3>
-                <div id="sponsor-qr-image-wrap" style="text-align:center;">
-                  <img id="sponsor-qr-image" src="" alt="二维码" style="max-width:220px;max-height:220px;border-radius:8px;display:none;" />
-                  <div id="sponsor-qr-placeholder" style="padding:40px 20px;background:var(--bg-tertiary);border-radius:8px;color:var(--text-muted);font-size:13px;">
-                    📱 二维码加载中…<br><small>如未显示，请将收款码放置到 assets/ 目录</small>
-                  </div>
-                </div>
-                <p style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:12px;">扫描上方二维码，即可打赏支持开发者 ❤️</p>
-              </div>
-            </div>
+
           </div>
 
           <!-- Token 推广收益 -->

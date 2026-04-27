@@ -28,7 +28,7 @@ issuehunt: GalaxyEpoch
 # thanks.dev — 开源贡献者自动打赏
 thanks_dev: u/gh/GalaxyEpoch
 
-# 自定义链接（微信/支付宝赞赏码、PayPal 等）
+# 自定义链接（PayPal 直接收款、爱发电等）
 custom:
-  - "https://www.paypal.me/galaxyepoch"
+  - "https://www.paypal.com/donate/?business=duhaidong1985@gmail.com"
   - "https://afdian.net/a/galaxyepoch"

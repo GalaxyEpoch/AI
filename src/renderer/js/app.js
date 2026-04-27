@@ -875,43 +875,6 @@ async function openAdminPanel() {
   }
 }
 
-function openSponsorQR(type) {
-  const configs = {
-    wechat: { icon: '💚', title: '微信赞赏', img: 'assets/wechat-qrcode.png' },
-    alipay: { icon: '🔵', title: '支付宝赞赏', img: 'assets/alipay-qrcode.png' }
-  };
-  const cfg = configs[type];
-  if (!cfg) return;
-
-  document.getElementById('sponsor-qr-icon').textContent = cfg.icon;
-  document.getElementById('sponsor-qr-title').textContent = cfg.title;
-
-  const img = document.getElementById('sponsor-qr-image');
-  const placeholder = document.getElementById('sponsor-qr-placeholder');
-
-  // 尝试加载二维码图片
-  img.src = cfg.img;
-  img.style.display = 'none';
-  placeholder.style.display = 'block';
-  placeholder.innerHTML = '📱 二维码加载中…<br><small>如未显示，请将收款码放置到 assets/ 目录</small>';
-
-  img.onload = function() {
-    img.style.display = 'inline-block';
-    placeholder.style.display = 'none';
-  };
-  img.onerror = function() {
-    img.style.display = 'none';
-    placeholder.style.display = 'block';
-    placeholder.innerHTML = '📱 二维码暂未配置<br><small>请将收款码图片放置到项目 <code>' + cfg.img + '</code></small>';
-  };
-
-  document.getElementById('sponsor-qr-modal').style.display = 'flex';
-}
-
-function closeSponsorQR() {
-  document.getElementById('sponsor-qr-modal').style.display = 'none';
-}
-
 function loadApiKeys() {
   const keys = state.settings.apiKeyMap || {};
   const providers = [...new Set(state.presets.map(p => p.provider))];
