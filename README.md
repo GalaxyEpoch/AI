@@ -1,2 +1,2 @@
-# GalaxyEpoch-
-A multi-model AI client
+# GalaxyEpoch
+星河纪元 - 多模型AI客户端
