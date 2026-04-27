@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+
+# ===== 闭源商业模块 - 禁止提交到开源仓库 =====
+# 这些文件包含推广链接、佣金统计、管理员认证等商业逻辑
+# 开发者 fork 后使用 promo-stub.js 替代，可正常运行但无商业功能
+src/main/promo-core.js
+src/renderer/admin.html
+src/preload/admin-preload.js
+
+# 用户数据（运行时生成）
+data/

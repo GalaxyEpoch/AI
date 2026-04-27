@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GalaxyEpoch - 大模型聚合客户端</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/chat.css">
+  <link rel="stylesheet" href="styles/sidebar.css">
+  <link rel="stylesheet" href="styles/settings.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 自定义标题栏 -->
+    <div class="titlebar" id="titlebar">
+      <div class="titlebar-drag">
+        <span class="titlebar-icon">🤖</span>
+        <span class="titlebar-title">GalaxyEpoch</span>
+      </div>
+      <div class="titlebar-controls">
+        <button class="titlebar-btn" id="btn-minimize" title="最小化">
+          <svg width="12" height="12" viewBox="0 0 12 12"><rect y="5" width="12" height="1.5" fill="currentColor"/></svg>
+        </button>
+        <button class="titlebar-btn" id="btn-maximize" title="最大化">
+          <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </button>
+        <button class="titlebar-btn titlebar-close" id="btn-close" title="关闭">
+          <svg width="12" height="12" viewBox="0 0 12 12"><path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 主体 -->
+    <div class="main-layout">
+      <!-- 左侧边栏 -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button class="btn-new-chat" id="btn-new-chat">
+            <span class="icon">✚</span> 新建对话
+          </button>
+        </div>
+        <div class="sidebar-search">
+          <input type="text" id="search-conversations" placeholder="🔍 搜索对话..." />
+        </div>
+        <div class="sidebar-tabs">
+          <button class="sidebar-tab active" data-tab="chats">对话</button>
+          <button class="sidebar-tab" data-tab="models">模型</button>
+        </div>
+        <div class="sidebar-content" id="sidebar-content">
+          <!-- 对话列表 -->
+          <div class="tab-panel active" id="panel-chats">
+            <div class="conversation-list" id="conversation-list"></div>
+          </div>
+          <!-- 模型列表 -->
+          <div class="tab-panel" id="panel-models">
+            <div class="model-section">
+              <div class="model-section-header">
+                <span>🖥️ 本地模型</span>
+                <button class="btn-icon" id="btn-scan-local" title="扫描本地模型">🔄</button>
+              </div>
+              <div class="model-list" id="local-model-list">
+                <div class="model-empty">点击 🔄 扫描本地模型</div>
+              </div>
+            </div>
+            <div class="model-section">
+              <div class="model-section-header">
+                <span>🌐 在线模型</span>
+              </div>
+              <div class="model-list" id="online-model-list"></div>
+            </div>
+
+          </div>
+        </div>
+        <!-- 底部操作 -->
+        <div class="sidebar-footer">
+          <button class="btn-footer" id="btn-settings" title="设置">⚙️ 设置</button>
+          <button class="btn-footer" id="btn-theme-toggle" title="切换主题">🌙</button>
+        </div>
+      </aside>
+
+      <!-- 主内容区 -->
+      <main class="chat-main" id="chat-main">
+        <!-- 空状态 -->
+        <div class="chat-empty" id="chat-empty">
+          <div class="empty-icon">🤖</div>
+          <h2>欢迎使用 GalaxyEpoch</h2>
+          <p>开源大模型聚合客户端，本地模型 + 全网主流 API 一键切换</p>
+          <div class="quick-actions">
+            <button class="btn-quick" id="btn-quick-scan">🖥️ 连接本地模型</button>
+            <button class="btn-quick" id="btn-quick-online">🌐 配置在线API</button>
+            <button class="btn-quick" id="btn-quick-new">✚ 开始新对话</button>
+          </div>
+        </div>
+
+        <!-- 对话区 -->
+        <div class="chat-area" id="chat-area" style="display:none;">
+          <div class="chat-header" id="chat-header">
+            <div class="chat-header-left">
+              <button class="btn-icon mobile-sidebar-toggle" id="btn-sidebar-toggle">☰</button>
+              <span class="chat-title" id="chat-title">新对话</span>
+            </div>
+            <div class="chat-header-right">
+              <span class="rag-badge" id="rag-badge" style="display:none;" title="RAG 知识库已激活">📚 RAG</span>
+              <select class="model-selector" id="model-selector">
+                <option value="">选择模型...</option>
+              </select>
+              <button class="btn-icon" id="btn-toggle-paint" title="AI 绘画">🎨</button>
+              <button class="btn-icon" id="btn-clear-chat" title="清空对话">🗑️</button>
+            </div>
+          </div>
+          <div class="chat-body">
+            <!-- 对话消息区 -->
+            <div class="chat-messages" id="chat-messages"></div>
+            <!-- 绘画侧面板 -->
+            <div class="paint-panel" id="paint-panel" style="display:none;">
+              <div class="paint-panel-header">
+                <span>🎨 AI 绘画</span>
+                <button class="btn-icon" id="btn-close-paint" title="关闭">✕</button>
+              </div>
+              <div class="paint-panel-body">
+                <div class="form-group">
+                  <label>绘画模型</label>
+                  <select id="paint-model-select"></select>
+                </div>
+                <div class="form-group">
+                  <label>描述</label>
+                  <textarea id="paint-prompt" rows="3" placeholder="描述你想要生成的图片..."></textarea>
+                </div>
+                <div class="form-group">
+                  <label>尺寸</label>
+                  <select id="paint-size-select">
+                    <option value="1024x1024">1024 × 1024</option>
+                    <option value="1024x1792">1024 × 1792</option>
+                    <option value="1792x1024">1792 × 1024</option>
+                  </select>
+                </div>
+                <button class="btn-primary" id="btn-paint-generate" style="width:100%;">🎨 生成图片</button>
+                <div class="paint-result" id="paint-result" style="display:none;margin-top:12px;">
+                  <img id="paint-result-img" style="max-width:100%;border-radius:var(--radius-sm);" />
+                </div>
+                <div class="paint-panel-divider"></div>
+                <div class="paint-panel-history-header">🖼️ 历史记录</div>
+                <div class="paint-history" id="paint-history">
+                  <div class="model-empty">暂无绘画记录</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <div class="input-wrapper">
+              <textarea id="chat-input" placeholder="输入消息... (Enter 发送, Shift+Enter 换行)" rows="1"></textarea>
+              <button class="btn-send" id="btn-send" title="发送">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"/></svg>
+              </button>
+              <button class="btn-stop" id="btn-stop" title="停止生成" style="display:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+              </button>
+            </div>
+            <div class="input-options">
+              <label class="input-option" title="温度">
+                🌡️ <input type="range" id="opt-temperature" min="0" max="2" step="0.1" value="0.7" /> <span id="val-temperature">0.7</span>
+              </label>
+              <label class="input-option" title="最大Token">
+                📏 <input type="number" id="opt-max-tokens" min="256" max="32768" step="256" value="4096" style="width:80px" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== 设置模态框 ==================== -->
+  <div class="modal-overlay" id="modal-settings" style="display:none;">
+    <div class="modal settings-modal">
+      <div class="modal-header">
+        <h2>⚙️ 设置</h2>
+        <button class="modal-close" id="close-settings">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-tabs">
+          <button class="settings-tab active" data-stab="apikeys">API 密钥</button>
+          <button class="settings-tab" data-stab="local">本地模型</button>
+          <button class="settings-tab" data-stab="chat-defaults">对话默认</button>
+          <button class="settings-tab" data-stab="knowledge">知识库</button>
+          <button class="settings-tab" data-stab="plugins">技能</button>
+          <button class="settings-tab" data-stab="language">语言</button>
+          <button class="settings-tab" data-stab="privacy">隐私</button>
+          <button class="settings-tab" data-stab="license">许可协议</button>
+          <button class="settings-tab" data-stab="about">关于</button>
+          <button class="settings-tab" data-stab="token">💰 Token收益</button>
+        </div>
+        <div class="settings-panels">
+          <!-- API 密钥 -->
+          <div class="settings-panel active" id="stab-apikeys">
+            <h3>API 密钥与模型管理</h3>
+            <p class="hint">密钥仅存储在本地，不会上传到任何服务器。添加模型后即可在对话中使用。没有密钥？点击"获取密钥"前往官方获取。</p>
+            <div class="apikey-list" id="apikey-list"></div>
+          </div>
+          <!-- 本地模型 -->
+          <div class="settings-panel" id="stab-local">
+            <h3>本地模型设置</h3>
+            <div class="setting-item">
+              <label>自动扫描本地模型</label>
+              <input type="checkbox" id="setting-auto-scan" checked />
+            </div>
+            <div class="setting-item">
+              <label>Ollama 地址</label>
+              <input type="text" id="setting-ollama-host" value="127.0.0.1" />
+            </div>
+            <div class="setting-item">
+              <label>Ollama 端口</label>
+              <input type="number" id="setting-ollama-port" value="11434" />
+            </div>
+            <div class="settings-actions">
+              <button class="btn-primary" id="btn-save-local">💾 保存</button>
+              <button class="btn-secondary" id="btn-scan-ollama">🔍 立即扫描</button>
+            </div>
+            <div id="ollama-scan-result"></div>
+          </div>
+          <!-- 对话默认 -->
+          <div class="settings-panel" id="stab-chat-defaults">
+            <h3>对话参数默认值</h3>
+            <div class="setting-item">
+              <label>温度 (Temperature)</label>
+              <input type="range" id="setting-temperature" min="0" max="2" step="0.1" value="0.7" />
+              <span id="setting-temperature-val">0.7</span>
+            </div>
+            <div class="setting-item">
+              <label>最大 Tokens</label>
+              <input type="number" id="setting-max-tokens" min="256" max="32768" step="256" value="4096" />
+            </div>
+            <div class="setting-item">
+              <label>Top P</label>
+              <input type="number" id="setting-top-p" min="0" max="1" step="0.1" value="1" />
+            </div>
+            <div class="settings-actions">
+              <button class="btn-primary" id="btn-save-chat-defaults">💾 保存</button>
+            </div>
+            <div id="chat-defaults-save-status"></div>
+          </div>
+          <!-- 知识库 -->
+          <div class="settings-panel" id="stab-knowledge">
+            <h3>📚 知识库管理</h3>
+            <p class="hint">知识库用于 RAG 检索增强，为 AI 对话提供专业背景知识。</p>
+            <div class="settings-kb-actions">
+              <button class="btn-primary" id="btn-create-kb">✚ 新建知识库</button>
+            </div>
+            <div class="settings-kb-active" id="settings-kb-active">
+              <span class="kb-active-label">当前 RAG 激活：</span>
+              <span class="kb-active-name" id="settings-kb-active-name">无</span>
+              <button class="btn-text" id="btn-settings-kb-deactivate" style="display:none;">取消激活</button>
+            </div>
+            <div class="settings-kb-list" id="settings-kb-list">
+              <div class="model-empty">暂无知识库，点击上方按钮创建</div>
+            </div>
+          </div>
+          <!-- 技能（插件） -->
+          <div class="settings-panel" id="stab-plugins">
+            <h3>🧩 技能管理</h3>
+            <p class="hint">技能（插件）可以扩展 GalaxyEpoch 的功能，如自动翻译、内容审核、自定义工作流等。</p>
+            <div class="settings-plugin-actions">
+              <button class="btn-primary" id="btn-install-plugin">📦 本地安装</button>
+              <button class="btn-secondary" id="btn-search-plugins">🔍 联网搜索</button>
+            </div>
+            <div class="settings-plugin-list" id="settings-plugin-list">
+              <div class="model-empty">暂无已安装插件</div>
+            </div>
+          </div>
+          <!-- 语言 -->
+          <div class="settings-panel" id="stab-language">
+            <h3>🌐 界面语言</h3>
+            <div class="lang-current">
+              <span class="lang-label">当前语言：</span>
+              <span class="lang-name" id="settings-lang-current-name">简体中文</span>
+            </div>
+            <div class="lang-list" id="settings-lang-list"></div>
+            <p class="hint" id="lang-restart-hint" style="margin-top:12px;display:none;color:var(--color-warning,#f59e0b);">⚠️ 语言已切换，重启应用后完全生效。</p>
+          </div>
+          <!-- 隐私 -->
+          <div class="settings-panel" id="stab-privacy">
+            <h3>隐私设置</h3>
+            <div class="setting-item">
+              <label>保存对话历史</label>
+              <input type="checkbox" id="setting-save-history" checked />
+            </div>
+            <div class="setting-item">
+              <label>发送匿名使用数据</label>
+              <input type="checkbox" id="setting-send-usage" />
+            </div>
+            <div class="settings-actions">
+              <button class="btn-primary" id="btn-save-privacy">💾 保存</button>
+            </div>
+            <div id="privacy-save-status"></div>
+          </div>
+          <!-- 许可协议 -->
+          <div class="settings-panel" id="stab-license">
+            <h3>许可协议</h3>
+            <div class="license-info">
+              <div class="license-badge">
+                <span class="license-badge-icon">📜</span>
+                <span class="license-badge-text">MIT License</span>
+              </div>
+              <p class="license-summary">
+                GalaxyEpoch 基于 <strong>MIT 开源协议</strong>发布，你可以自由使用、修改、分发本软件。
+              </p>
+              <div class="license-detail">
+                <h4>✅ 你可以</h4>
+                <ul>
+                  <li>商业使用 — 将本软件用于商业项目</li>
+                  <li>修改 — 自由修改源代码</li>
+                  <li>分发 — 重新分发原始或修改后的代码</li>
+                  <li>私人使用 — 个人学习和使用</li>
+                </ul>
+                <h4>⚠️ 附加条款</h4>
+                <ul>
+                  <li>推广收益接口模块（promo-core.js）为闭源商业组件，不在 MIT 协议覆盖范围内</li>
+                  <li>管理员后台（admin.html）为闭源组件，不可复制或修改</li>
+                  <li>开源 fork 需保留原始版权声明和许可声明</li>
+                  <li>不可移除或修改"获取密钥"入口的推广参数（闭源模块生效时）</li>
+                </ul>
+                <h4>❌ 你不可以</h4>
+                <ul>
+                  <li>追究作者责任 — 软件按"原样"提供，无任何担保</li>
+                  <li>使用作者商标进行推广 — 未经授权不得使用 GalaxyEpoch 商标</li>
+                </ul>
+              </div>
+              <div class="license-modules">
+                <h4>📦 模块授权一览</h4>
+                <table class="license-table">
+                  <thead>
+                    <tr><th>模块</th><th>协议</th><th>开源</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>核心客户端</td><td>MIT</td><td class="yes">✅ 是</td></tr>
+                    <tr><td>对话 / 模型管理</td><td>MIT</td><td class="yes">✅ 是</td></tr>
+                    <tr><td>知识库 / RAG</td><td>MIT</td><td class="yes">✅ 是</td></tr>
+                    <tr><td>promo-interface.js</td><td>MIT</td><td class="yes">✅ 是</td></tr>
+                    <tr><td>promo-stub.js</td><td>MIT</td><td class="yes">✅ 是</td></tr>
+                    <tr><td>promo-core.js</td><td>闭源</td><td class="no">❌ 否</td></tr>
+                    <tr><td>admin.html</td><td>闭源</td><td class="no">❌ 否</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="license-note">
+                Fork 开发者：如需替换推广模块，请实现 <code>promo-interface.js</code> 中定义的接口，或直接修改 <code>promo-stub.js</code>。
+              </p>
+            </div>
+          </div>
+          <!-- 关于 -->
+          <div class="settings-panel" id="stab-about">
+            <h3>关于 GalaxyEpoch</h3>
+            <div class="about-info">
+              <p><strong>GalaxyEpoch</strong> - 开源大模型聚合客户端</p>
+              <p>版本：<span id="app-version">1.0.0</span></p>
+              <p>协议：MIT License</p>
+              <p>本软件永久开源免费，基础功能不设任何限制</p>
+            </div>
+            <div style="margin-top: 20px;">
+              <button class="btn-primary" onclick="openAdminPanel()" style="padding: 8px 20px;">🔐 管理员后台</button>
+            </div>
+          </div>
+
+          <!-- Token 推广收益 -->
+          <div class="settings-panel" id="stab-token">
+            <h3>💰 Token 推广收益</h3>
+
+            <!-- 收益概览 -->
+            <div class="token-overview-grid">
+              <div class="token-stat-card">
+                <div class="token-stat-value" id="token-total-earnings">¥0.00</div>
+                <div class="token-stat-label">推广总收益</div>
+              </div>
+              <div class="token-stat-card">
+                <div class="token-stat-value" id="token-pending-settlement">¥0.00</div>
+                <div class="token-stat-label">待结算</div>
+              </div>
+              <div class="token-stat-card">
+                <div class="token-stat-value" id="token-settled-amount">¥0.00</div>
+                <div class="token-stat-label">已结算</div>
+              </div>
+              <div class="token-stat-card">
+                <div class="token-stat-value" id="token-total-balance">¥0.00</div>
+                <div class="token-stat-label">各平台余额合计(估)</div>
+              </div>
+            </div>
+
+            <!-- 各平台余额 -->
+            <div class="setting-item" style="margin-top:16px;">
+              <label style="font-weight:600;margin-bottom:8px;display:block;">📊 各平台 Token 余额</label>
+              <p class="hint">手动更新各平台余额，或从各平台后台查看后填写。点击金额可编辑。</p>
+              <div class="token-balance-table" id="token-balance-table">
+                <!-- 动态渲染 -->
+              </div>
+            </div>
+
+            <!-- 收益明细 -->
+            <div class="setting-item" style="margin-top:16px;">
+              <label style="font-weight:600;margin-bottom:8px;display:block;">📋 推广收益明细</label>
+              <div class="token-earnings-filter">
+                <select id="token-earnings-filter-type" style="padding:4px 8px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:4px;color:var(--text-primary);font-size:12px;">
+                  <option value="">全部类型</option>
+                  <option value="promo">推广注册</option>
+                  <option value="topup">充值返利</option>
+                  <option value="usage">用量分成</option>
+                </select>
+                <select id="token-earnings-filter-status" style="padding:4px 8px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:4px;color:var(--text-primary);font-size:12px;">
+                  <option value="">全部状态</option>
+                  <option value="pending">待结算</option>
+                  <option value="settled">已结算</option>
+                </select>
+              </div>
+              <div class="token-records-list" id="token-earnings-list">
+                <!-- 动态渲染 -->
+              </div>
+              <button class="btn-secondary" id="btn-token-earnings-more" style="margin-top:8px;display:none;">加载更多</button>
+            </div>
+
+            <!-- 充值记录 -->
+            <div class="setting-item" style="margin-top:16px;">
+              <label style="font-weight:600;margin-bottom:8px;display:block;">💳 充值记录</label>
+              <button class="btn-secondary btn-sm" id="btn-token-add-topup" style="margin-bottom:8px;">+ 添加充值记录</button>
+              <div class="token-records-list" id="token-topup-list">
+                <!-- 动态渲染 -->
+              </div>
+            </div>
+
+            <!-- 我的收款方式 -->
+            <div class="setting-item" style="margin-top:16px;">
+              <label style="font-weight:600;margin-bottom:8px;display:block;">🏦 我的收款方式</label>
+              <p class="hint">配置你的收款二维码或银行卡，用于接收推广佣金结算</p>
+
+              <div class="form-group">
+                <label>收款方式</label>
+                <select id="my-payment-method" style="width:100%;padding:8px 12px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
+                  <option value="alipay">支付宝</option>
+                  <option value="wechat">微信</option>
+                  <option value="bank">银行卡</option>
+                  <option value="usdt">USDT</option>
+                  <option value="custom">自定义</option>
+                </select>
+              </div>
+
+              <!-- 支付宝 -->
+              <div class="my-payment-section" id="my-payment-alipay">
+                <div class="form-group">
+                  <label>支付宝账号</label>
+                  <input type="text" id="my-alipay-account" placeholder="支付宝账号/手机号" />
+                </div>
+                <div class="form-group">
+                  <label>支付宝收款码（选择图片上传）</label>
+                  <input type="file" id="my-alipay-qr-file" accept="image/*" style="font-size:12px;" />
+                  <div class="payment-qr-preview-sm" id="my-alipay-qr-preview">未上传</div>
+                </div>
+              </div>
+
+              <!-- 微信 -->
+              <div class="my-payment-section" id="my-payment-wechat" style="display:none;">
+                <div class="form-group">
+                  <label>微信账号</label>
+                  <input type="text" id="my-wechat-account" placeholder="微信号" />
+                </div>
+                <div class="form-group">
+                  <label>微信收款码（选择图片上传）</label>
+                  <input type="file" id="my-wechat-qr-file" accept="image/*" style="font-size:12px;" />
+                  <div class="payment-qr-preview-sm" id="my-wechat-qr-preview">未上传</div>
+                </div>
+              </div>
+
+              <!-- 银行卡 -->
+              <div class="my-payment-section" id="my-payment-bank" style="display:none;">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>银行名称</label>
+                    <input type="text" id="my-bank-name" placeholder="如：中国工商银行" />
+                  </div>
+                  <div class="form-group">
+                    <label>开户支行</label>
+                    <input type="text" id="my-bank-branch" placeholder="如：北京朝阳支行" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>银行账号</label>
+                    <input type="text" id="my-bank-account" placeholder="银行卡号" />
+                  </div>
+                  <div class="form-group">
+                    <label>持卡人姓名</label>
+                    <input type="text" id="my-bank-holder" placeholder="持卡人姓名" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- USDT -->
+              <div class="my-payment-section" id="my-payment-usdt" style="display:none;">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>USDT 地址</label>
+                    <input type="text" id="my-usdt-address" placeholder="TRC20 / ERC20 钱包地址" />
+                  </div>
+                  <div class="form-group">
+                    <label>网络</label>
+                    <select id="my-usdt-network" style="width:100%;padding:8px 12px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
+                      <option value="TRC20">TRC20 (波场)</option>
+                      <option value="ERC20">ERC20 (以太坊)</option>
+                      <option value="BEP20">BEP20 (币安)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 自定义 -->
+              <div class="my-payment-section" id="my-payment-custom" style="display:none;">
+                <div class="form-group">
+                  <label>自定义收款说明</label>
+                  <textarea id="my-custom-note" placeholder="填写其他收款方式说明..." rows="3"></textarea>
+                </div>
+              </div>
+
+              <div class="settings-actions" style="margin-top:12px;">
+                <button class="btn-primary" id="btn-save-my-payment">💾 保存收款配置</button>
+                <span class="settings-saved-hint" id="my-payment-saved-hint">✓ 已保存</span>
+              </div>
+            </div>
+          </div>
+  <div class="modal-overlay" id="modal-buy-token" style="display:none;">
+    <div class="modal" style="max-width:420px;">
+      <div class="modal-header">
+        <h2>🔑 获取 API 密钥</h2>
+        <button class="modal-close" id="close-buy-token">✕</button>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <p style="margin-bottom:16px;color:var(--text-secondary);">即将跳转到 <strong id="buy-token-provider-name"></strong> 官方平台注册/购买 API 密钥</p>
+        <p style="margin-bottom:24px;font-size:12px;color:var(--text-muted);">你将在官方平台完成注册和付费，密钥由官方直接提供</p>
+        <div style="display:flex;gap:12px;justify-content:center;">
+          <button class="btn-secondary" id="cancel-buy-token">取消</button>
+          <button class="btn-primary" id="confirm-buy-token">前往官方平台</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加/编辑模型模态框 -->
+  <div class="modal-overlay" id="modal-add-model" style="display:none;">
+    <div class="modal add-model-modal">
+      <div class="modal-header">
+        <h2 id="add-model-modal-title">✚ 添加模型</h2>
+        <button class="modal-close" id="close-add-model">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>选择平台</label>
+          <select id="add-model-platform">
+            <option value="">-- 选择平台自动填入地址 --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>模型名称 *</label>
+          <input type="text" id="add-model-name" placeholder="如：DeepSeek Chat" />
+        </div>
+        <div class="form-group">
+          <label>API 类型</label>
+          <select id="add-model-type">
+            <option value="openai">OpenAI 兼容</option>
+            <option value="anthropic">Anthropic</option>
+            <option value="google">Google Gemini</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>API 地址 *</label>
+          <input type="text" id="add-model-api-base" placeholder="选择平台后自动填入，或手动输入" />
+        </div>
+        <div class="form-group">
+          <label>模型 ID * <span id="add-model-id-hint" class="model-id-hint"></span></label>
+          <input type="text" id="add-model-model-id" placeholder="如：deepseek-chat" />
+        </div>
+        <div class="form-group">
+          <label>API Key <span id="add-model-key-status" class="model-key-status"></span></label>
+          <input type="password" id="add-model-api-key" placeholder="选择平台后自动使用已保存的密钥" />
+        </div>
+        <div class="form-group" style="flex-direction:row;align-items:center;gap:8px;">
+          <input type="checkbox" id="add-model-remember" checked />
+          <label for="add-model-remember" style="margin:0;cursor:pointer;">💾 记住本次设置（下次添加同平台模型时自动填入）</label>
+        </div>
+        <div class="form-actions">
+          <button class="btn-secondary" id="cancel-add-model">取消</button>
+          <button class="btn-primary" id="confirm-add-model">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 知识库详情模态框 -->
+  <div class="modal-overlay" id="modal-kb-detail" style="display:none;">
+    <div class="modal kb-detail-modal">
+      <div class="modal-header">
+        <h2 id="kb-detail-title">📚 知识库详情</h2>
+        <button class="modal-close" id="close-kb-detail">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="kb-detail-info">
+          <p id="kb-detail-desc" class="kb-detail-desc"></p>
+          <p class="kb-detail-stats">
+            <span id="kb-detail-doc-count">0</span> 个文档 · 
+            <span id="kb-detail-chunk-count">0</span> 个分块 · 
+            创建于 <span id="kb-detail-created"></span>
+          </p>
+        </div>
+        <div class="kb-doc-actions">
+          <button class="btn-primary" id="btn-add-doc-text">📝 添加文本</button>
+          <button class="btn-secondary" id="btn-add-doc-file">📁 导入文件</button>
+        </div>
+        <div class="kb-doc-list" id="kb-doc-list">
+          <div class="model-empty">暂无文档</div>
+        </div>
+        <div class="kb-detail-footer">
+          <button class="btn-secondary kb-activate-btn" id="btn-kb-activate">🚀 激活 RAG</button>
+          <button class="btn-danger-outline" id="btn-kb-delete">🗑️ 删除知识库</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加文档（文本）模态框 -->
+  <div class="modal-overlay" id="modal-add-doc-text" style="display:none;">
+    <div class="modal" style="max-width:560px;">
+      <div class="modal-header">
+        <h2>📝 添加文本文档</h2>
+        <button class="modal-close" id="close-add-doc-text">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>文档名称</label>
+          <input type="text" id="doc-text-name" placeholder="如：产品说明" />
+        </div>
+        <div class="form-group">
+          <label>文档内容</label>
+          <textarea id="doc-text-content" rows="10" placeholder="粘贴或输入文档内容..." style="width:100%;resize:vertical;background:var(--bg-input);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:14px;padding:10px 14px;outline:none;font-family:var(--font);"></textarea>
+        </div>
+        <div class="form-group">
+          <label>分块大小 <span id="doc-chunk-size-val">500</span> 字</label>
+          <input type="range" id="doc-chunk-size" min="200" max="2000" step="100" value="500" style="width:100%;" />
+        </div>
+        <div class="form-actions">
+          <button class="btn-secondary" id="cancel-add-doc-text">取消</button>
+          <button class="btn-primary" id="confirm-add-doc-text">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加文档（文件）模态框 -->
+  <div class="modal-overlay" id="modal-add-doc-file" style="display:none;">
+    <div class="modal" style="max-width:480px;">
+      <div class="modal-header">
+        <h2>📁 导入文件</h2>
+        <button class="modal-close" id="close-add-doc-file">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="hint" style="margin-bottom:16px;">支持 .txt / .md / .json 等文本文件，文件将通过 Electron 原生文件选择器选取。</p>
+        <div class="form-group">
+          <label>选择文件</label>
+          <div class="file-input-row">
+            <input type="text" id="doc-file-path" placeholder="点击浏览选择文件..." readonly />
+            <button class="btn-secondary" id="btn-browse-file">浏览</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>分块大小 <span id="doc-file-chunk-size-val">500</span> 字</label>
+          <input type="range" id="doc-file-chunk-size" min="200" max="2000" step="100" value="500" style="width:100%;" />
+        </div>
+        <div class="form-actions">
+          <button class="btn-secondary" id="cancel-add-doc-file">取消</button>
+          <button class="btn-primary" id="confirm-add-doc-file">导入</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新建知识库模态框 -->
+  <div class="modal-overlay" id="modal-create-kb" style="display:none;">
+    <div class="modal" style="max-width:440px;">
+      <div class="modal-header">
+        <h2>📚 新建知识库</h2>
+        <button class="modal-close" id="close-create-kb">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>知识库名称 *</label>
+          <input type="text" id="kb-create-name" placeholder="如：产品文档" />
+        </div>
+        <div class="form-group">
+          <label>描述（可选）</label>
+          <input type="text" id="kb-create-desc" placeholder="简要描述知识库用途" />
+        </div>
+        <div class="form-actions">
+          <button class="btn-secondary" id="cancel-create-kb">取消</button>
+          <button class="btn-primary" id="confirm-create-kb">创建</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 安装插件模态框 -->
+  <div class="modal-overlay" id="modal-install-plugin" style="display:none;">
+    <div class="modal" style="max-width:440px;">
+      <div class="modal-header">
+        <h2>📦 本地安装插件</h2>
+        <button class="modal-close" id="close-install-plugin">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="hint" style="margin-bottom:16px;">选择插件目录（包含 manifest.json 的文件夹）进行安装。</p>
+        <div class="form-group">
+          <label>插件路径</label>
+          <div class="file-input-row">
+            <input type="text" id="plugin-install-path" placeholder="选择插件目录..." readonly />
+            <button class="btn-secondary" id="btn-browse-plugin">浏览</button>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-secondary" id="cancel-install-plugin">取消</button>
+          <button class="btn-primary" id="confirm-install-plugin">安装</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 联网搜索插件模态框 -->
+  <div class="modal-overlay" id="modal-search-plugins" style="display:none;">
+    <div class="modal" style="max-width:560px;">
+      <div class="modal-header">
+        <h2>🔍 搜索在线技能</h2>
+        <button class="modal-close" id="close-search-plugins">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="display:flex;gap:8px;">
+          <input type="text" id="plugin-search-query" placeholder="搜索技能，如：翻译、摘要、代码..." style="flex:1;padding:8px 12px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;outline:none;" />
+          <button class="btn-primary" id="btn-do-plugin-search">搜索</button>
+        </div>
+        <div class="plugin-search-results" id="plugin-search-results">
+          <div class="model-empty">输入关键词搜索在线技能</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

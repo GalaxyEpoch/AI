@@ -1,0 +1,50 @@
+MIT License
+
+Copyright (c) 2026 GalaxyEpoch Team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Additional Terms - Commercial Modules
+
+The following files are NOT covered by the MIT license above and are 
+proprietary to the GalaxyEpoch Team:
+
+- src/main/promo-core.js
+- src/renderer/admin.html
+- src/preload/admin-preload.js
+
+These files contain commercial logic (promotion links, commission tracking,
+admin authentication) and are NOT included in the open-source repository.
+
+You MAY NOT:
+1. Reverse-engineer, decompile, or disassemble these commercial modules
+2. Modify, redirect, or interfere with the promotion/commission tracking logic
+3. Replace or bypass the promotion link system to divert referral commissions
+4. Distribute modified versions that alter the promotion or billing behavior
+
+You MAY:
+1. Fork, modify, and distribute all other source code under MIT terms
+2. Build and run the application locally for development and testing
+3. Submit pull requests that improve the open-source portions
+4. Create your own promotion module by implementing the same interface
+   (see src/main/promo-interface.js for the public API contract)
+
+For commercial licensing inquiries, contact the GalaxyEpoch Team.
